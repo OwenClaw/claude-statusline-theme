@@ -1,97 +1,73 @@
-# Claude Statusline Theme
+<div align="center">
 
-A beautiful, feature-rich status line theme for Claude Code.
+# 🌌 Claude Code Statusline Theme
 
-![Status Line Preview](https://img.shields.io/badge/Claude-Code-success?style=for-the-badge)
+**Cyberpunk-themed status line with 24-bit true color and tech icons**
 
-## Features
+[中文](README.zh-CN.md) | English
 
-- 🕐 **Current Time** - Always know what time it is
-- ✨ **Model Display** - Shows Claude model (Sonnet/Opus/Haiku)
-- 🌿 **Git Branch & Status** - Visual indicators for:
-  - `✓` Staged changes
-  - `•` Modified files
-  - `+` Untracked files
-  - `↑` Unpushed commits
-- 🟢🟡🔴 **Context Window** - Color-coded by remaining percentage
-  - 🟢 Green: >50%
-  - 🟡 Yellow: 20-50%
-  - 🔴 Red: <20%
-- 💬 **Token Usage** - Input/output tokens with k/M suffixes
-- 🔋⚡🪫 **Battery Status** - macOS only, shows percentage and charging state
-- 💎 **Node.js Version** - Display current Node version if available
-- 📂 **Directory Path** - Current working directory with ~ for home
+![Preview](assets/screenshot.png)
 
-## Installation
+</div>
 
-1. Copy the script to your Claude config directory:
-   ```bash
-   cp statusline-command.sh ~/.claude/
-   chmod +x ~/.claude/statusline-command.sh
-   ```
+---
 
-2. Add to your `~/.claude/settings.json`:
-   ```json
-   {
-     "statusLine": {
-       "type": "command",
-       "command": "~/.claude/statusline-command.sh"
-     }
-   }
-   ```
+## ✨ Components
 
-3. Restart Claude Code
+### Line 1
 
-## Requirements
+| Module | Description |
+|:------:|-------------|
+| ⏰ **Time** | Current time in HH:MM format |
+| 🤖 **Model** | Active Claude model (Sonnet / Opus / Haiku) |
+| 🌿 **Branch** | Current git branch name |
+| 📊 **Git Counts** | `Xm Xs Xu Xp` — modified / staged / untracked / unpushed, colored cyan / magenta / green / coral |
+| 🔋 **Battery** | macOS battery % with charging / low / full state icons |
+| 🟢 **Node.js** | Current Node.js version |
+| 📂 **Directory** | Working directory path (`~` for home) |
 
-- **jq** - JSON processor for parsing Claude's input
-  ```bash
-  brew install jq  # macOS
-  ```
+### Line 2
 
-## Customization
+| Module | Description |
+|:------:|-------------|
+| 📈 **Context Window** | Progress bar with remaining % |
+| 🔄 **Tokens** | Input / Output with k/M suffixes |
+| 🔌 **MCP** | Connected MCP server count |
+| 🪝 **Hooks** | Active hooks count (global + project) |
 
-You can easily customize the theme by editing `statusline-command.sh`:
+---
 
-### Change Separator
-Edit line 179:
+## 🚀 Usage
+
 ```bash
-IFS=" | "  # Change to whatever you like
+# 1. Copy the script
+cp statusline-nerd.sh ~/.claude/statusline-nerd.sh
+chmod +x ~/.claude/statusline-nerd.sh
 ```
 
-### Remove Components
-Comment out the sections you don't need:
-```bash
-# To remove battery:
-# if command -v pmset &> /dev/null; then
-#   ...
-# fi
+Add to `~/.claude/settings.json`:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-nerd.sh"
+  }
+}
 ```
 
-### Add Custom Components
-Add your own logic following the same pattern:
-```bash
-# Example: Python version
-if command -v python &> /dev/null; then
-  python_version=$(python --version 2>/dev/null | awk '{print $2}')
-  components+=("🐍 ${python_version}")
-fi
-```
+Restart Claude Code and enjoy ✨
 
-## Preview
+---
 
-```
-🕐 14:30 | ✨ Sonnet | 🌿 main•+ | 🟢 75% | 💬 12k/3k | 🔋 85% | 💎 v20.11.0 | 📂 ~/projects/my-app
-```
+## 📋 Requirements
 
-## License
+- `jq` — JSON parser
+- **Nerd Font** (e.g., MesloLGS NF, JetBrains Mono Nerd Font)
+- True color terminal (`COLORTERM=truecolor`)
+
+---
+
+## 📄 License
 
 MIT
-
-## Author
-
-Created by [@L-owen](https://github.com/L-owen)
-
-## Contributing
-
-Feel free to submit issues and pull requests!
